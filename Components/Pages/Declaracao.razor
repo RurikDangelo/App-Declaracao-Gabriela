@@ -1,0 +1,46 @@
+@page "/declaracao"
+@inject IJSRuntime JSRuntime
+@inject NavigationManager NavigationManager
+
+<div class="proposal-container" id="background-container">
+    <div class="proposal-content">
+        <h1 class="proposal-title">Gabriela, quer namorar comigo?</h1>
+        
+        <div class="buttons-container">
+            <button class="btn-yes" @onclick="HandleYesClick">SIM!</button>
+            <button class="btn-no" id="no-button" @onmouseover="MoveNoButton">NÃO</button>
+        </div>
+        
+        @if (showSuccess)
+        {
+            <div class="success-message">
+                ❤️ Eu te amo, Gabriela! ❤️
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private bool showSuccess = false;
+    private Random random = new Random();
+    
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("setBackgroundImage", "/Images/background.jpg");
+            await JSRuntime.InvokeVoidAsync("initNoButton");
+        }
+    }
+    
+    private async Task HandleYesClick()
+    {
+        showSuccess = true;
+        await JSRuntime.InvokeVoidAsync("createHearts");
+    }
+    
+    private async Task MoveNoButton()
+    {
+        await JSRuntime.InvokeVoidAsync("moveNoButton");
+    }
+} 

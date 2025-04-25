@@ -1,0 +1,21 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+
+<PageTitle>Para Gabriela</PageTitle>
+
+<div class="container text-center my-5">
+    <h1 class="display-4">Olá, Gabriela!</h1>
+    
+    <p class="lead mt-4">Tenho algo especial para te mostrar...</p>
+    
+    <button class="btn btn-primary btn-lg mt-4" @onclick="GoProposta">
+        Clique aqui para descobrir!
+    </button>
+</div>
+
+@code {
+    private void GoProposta()
+    {
+        NavigationManager.NavigateTo("declaracao");
+    }
+}
